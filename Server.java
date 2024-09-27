@@ -42,13 +42,13 @@ public class Server {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        JLabel carLabel = new JLabel("Название блюд:");
+        JLabel foodLabel = new JLabel("Название блюд:");
         JTextField carField = new JTextField(15);
         JLabel countLabel = new JLabel("Количество:");
         JTextField countField = new JTextField(5);
         JButton addButton = new JButton("Добавить блюдо");
 
-        setLabelStyle(carLabel);
+        setLabelStyle(foodLabel);
         setLabelStyle(countLabel);
         setFieldStyle(carField);
         setFieldStyle(countField);
@@ -56,7 +56,7 @@ public class Server {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        addCarPanel.add(carLabel, gbc);
+        addCarPanel.add(foodLabel, gbc);
         gbc.gridx = 1;
         addCarPanel.add(carField, gbc);
 
@@ -74,35 +74,34 @@ public class Server {
         JPanel carListPanel = new JPanel(new BorderLayout());
         carListPanel.setBackground(new Color(40, 40, 40));
 
-        JTextArea carListArea = new JTextArea();
-        carListArea.setEditable(false);
-        carListArea.setBackground(new Color(33, 33, 33));
-        carListArea.setForeground(Color.WHITE);
-        carListArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        JTextArea foodListArea = new JTextArea();
+        foodListArea.setEditable(false);
+        foodListArea.setBackground(new Color(33, 33, 33));
+        foodListArea.setForeground(Color.WHITE);
+        foodListArea.setFont(new Font("Arial", Font.PLAIN, 14));
 
         JButton refreshButton = new JButton("Обновить список");
         setButtonStyle(refreshButton);
 
-        carListPanel.add(new JScrollPane(carListArea), BorderLayout.CENTER);
+        carListPanel.add(new JScrollPane(foodListArea), BorderLayout.CENTER);
         carListPanel.add(refreshButton, BorderLayout.SOUTH);
 
         refreshButton.addActionListener(e -> {
-            carListArea.setText(getCarListFromDatabase());
+            foodListArea.setText(getCarListFromDatabase());
         });
 
         addButton.addActionListener(e -> {
-            String carName = carField.getText();
-            int carCount = Integer.parseInt(countField.getText());
-            addCarToDatabase(carName, carCount);
+            String foodName = carField.getText();
+            int foodCount = Integer.parseInt(countField.getText());
+            addCarToDatabase(foodName, foodCount);
             JOptionPane.showMessageDialog(frame, "Блюдо добавлено на продажу.");
-            carListArea.setText(getCarListFromDatabase()); // Обновляем список после добавления
+            foodListArea.setText(getCarListFromDatabase()); // Обновляем список после добавления
         });
 
-        // Добавляем панели в основную панель
+
         carPanel.add(addCarPanel, BorderLayout.NORTH);
         carPanel.add(carListPanel, BorderLayout.CENTER);
 
-        // Вкладка с чатом
         JPanel chatPanel = new JPanel(new BorderLayout());
         chatPanel.setBackground(new Color(255, 255, 255));
 
@@ -232,6 +231,6 @@ public class Server {
     }
 
     private static void sendMessageToClient(String message) {
-        // This function is for sending messages to the client (not yet implemented)
+
     }
 }
