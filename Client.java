@@ -14,8 +14,8 @@ import java.util.List;
 
 public class Client {
 
-    private static List<String> cart = new ArrayList<>(); // Корзина
-    private static JTextArea cartArea;
+    private static List<String> foodt = new ArrayList<>(); // Корзина
+    private static JTextArea foodArea;
 
 
     private static final String DB_URL = "jdbc:mysql://it.vshp.online:3306/db_d5bcc9";
@@ -48,15 +48,15 @@ public class Client {
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
 
-        JPanel cartPanel = new JPanel();
-        cartArea = new JTextArea(5, 40);
-        cartArea.setEditable(false);
+        JPanel foodtPanel = new JPanel();
+        foodArea = new JTextArea(5, 40);
+        foodArea.setEditable(false);
 
-        JScrollPane cartScrollPane = new JScrollPane(cartArea);
-        cartScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        JScrollPane foodtScrollPane = new JScrollPane(foodArea);
+        foodtScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        cartPanel.add(cartScrollPane);
-        centerPanel.add(cartPanel);
+        foodtPanel.add(foodtScrollPane);
+        centerPanel.add(foodtPanel);
 
 
         JPanel buttonPanel = new JPanel();
@@ -68,25 +68,25 @@ public class Client {
         clearButton.setPreferredSize(new Dimension(120, 30));
 
         buyButton.addActionListener(e -> {
-            if (cart.isEmpty()) {
+            if (foodt.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Корзина пуста! Добавьте блюдо перед покупкой.");
             } else {
-                String message = "Блюдо(а) готовятся:\n" + String.join(", ", cart);
+                String message = "Блюдо(а) готовятся:\n" + String.join(", ", foodt);
 
 
                 sendToServer(message);
 
 
-                JOptionPane.showMessageDialog(null, "Вы купили:\n" + String.join("\n", cart));
-                cart.clear();
+                JOptionPane.showMessageDialog(null, "Вы купили:\n" + String.join("\n", foodt));
+                foodt.clear();
 
-                updateCartDisplay();
+                updatefoodtDisplay();
             }
         });
 
         clearButton.addActionListener(e -> {
-            cart.clear();
-            updateCartDisplay();
+            foodt.clear();
+            updatefoodtDisplay();
             JOptionPane.showMessageDialog(null, "Корзина очищена.");
         });
 
@@ -114,8 +114,8 @@ public class Client {
                 String dishName = rs.getString("name");
                 JButton dishButton = new JButton(dishName);
                 dishButton.addActionListener(e -> {
-                    cart.add(dishName);
-                    updateCartDisplay();
+                    foodt.add(dishName);
+                    updatefoodtDisplay();
                 });
                 dishPanel.add(dishButton);
             }
@@ -126,9 +126,9 @@ public class Client {
         }
     }
 
-    private static void updateCartDisplay() {
+    private static void updatefoodtDisplay() {
         // Обновление отображения корзины в текстовой области
-        cartArea.setText(String.join("\n", cart));
+        foodArea.setText(String.join("\n", foodt));
     }
 
     private static void sendToServer(String message) {
@@ -140,3 +140,4 @@ public class Client {
         }
     }
 }
+
